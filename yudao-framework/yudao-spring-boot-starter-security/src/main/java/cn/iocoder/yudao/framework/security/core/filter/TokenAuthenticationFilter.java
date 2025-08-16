@@ -107,11 +107,21 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             return null;
         }
         // 必须以 mockSecret 开头
-        if (!token.startsWith(securityProperties.getMockSecret())) {
+        String mockSecret = securityProperties.getMockSecret();
+        if (!token.startsWith(mockSecret)) {
             return null;
         }
+
+        // 解析用户编号
+        Long userId;
+        try {
+            userId = Long.valueOf(token.substring(mockSecret.length()));
+        } catch (NumberFormatException e) {
+            // 可能是 "test" 这种不带用户编号的
+            return null;
+        }
+
         // 构建模拟用户
-        Long userId = Long.valueOf(token.substring(securityProperties.getMockSecret().length()));
         return new LoginUser().setId(userId).setUserType(userType)
                 .setTenantId(WebFrameworkUtils.getTenantId(request));
     }
