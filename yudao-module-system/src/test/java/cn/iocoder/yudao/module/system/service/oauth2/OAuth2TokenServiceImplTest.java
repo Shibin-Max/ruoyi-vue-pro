@@ -67,7 +67,7 @@ public class OAuth2TokenServiceImplTest extends BaseDbAndRedisUnitTest {
         List<String> scopes = Lists.newArrayList("read", "write");
         // mock 方法
         OAuth2ClientDO clientDO = randomPojo(OAuth2ClientDO.class).setClientId(clientId)
-                .setAccessTokenValiditySeconds(30).setRefreshTokenValiditySeconds(60);
+                .setAccessTokenValiditySeconds(30L).setRefreshTokenValiditySeconds(60L);
         when(oauth2ClientService.validOAuthClientFromCache(eq(clientId))).thenReturn(clientDO);
         // mock 数据（用户）
         AdminUserDO user = randomPojo(AdminUserDO.class);
