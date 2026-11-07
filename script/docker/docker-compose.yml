@@ -15,7 +15,7 @@ services:
 
       JAVA_OPTS: >
         -Xms512m
-        -Xmx512m
+        -Xmx1024m
         -Djava.security.egd=file:/dev/./urandom
 
       ARGS: >
